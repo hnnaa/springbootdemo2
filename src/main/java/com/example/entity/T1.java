@@ -1,9 +1,19 @@
 package com.example.entity;
 
-public class T1 {
+import java.io.Serializable;
+
+public class T1 implements Serializable {
     private Integer id;
 
     private String name;
+
+    private Integer age;
+
+    private String address;
+
+    private String cardno;
+
+    private static final long serialVersionUID = 1L;
 
     public Integer getId() {
         return id;
@@ -19,5 +29,29 @@ public class T1 {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getCardno() {
+        return cardno;
+    }
+
+    public void setCardno(String cardno) {
+        this.cardno = cardno;
     }
 }

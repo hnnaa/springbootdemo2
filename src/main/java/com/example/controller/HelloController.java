@@ -3,19 +3,28 @@ package com.example.controller;
 import com.example.config.*;
 import com.example.dao.T1Mapper;
 import com.example.entity.T1;
+import com.example.entity.T1Example;
+import com.example.pojo.LombokTest;
 import com.example.pojo.Person;
+import com.example.service.T1Service;
+import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Slf4j
 @RestController
 public class HelloController {
-
-    private Logger logger = LoggerFactory.getLogger(HelloController.class);
 
     @Autowired
     private Student student;
@@ -26,9 +35,12 @@ public class HelloController {
     @Autowired
     private T1Mapper t1Mapper;
 
+    @Autowired
+    private T1Service t1Service;
+
     @RequestMapping("/")
     public String index() {
-        logger.info("access index");
+        log.info("access index");
         return "Index";
     }
 
@@ -49,7 +61,7 @@ public class HelloController {
 
     @RequestMapping("/pet")
     public String getPet() {
-        logger.info("receive pet request");
+        log.info("receive pet request");
         return customPetBean.getName() + ";" + customPetBean.getNo() + ";" + customPetBean.getNickName();
     }
 
@@ -79,9 +91,30 @@ public class HelloController {
     }
 
     @RequestMapping(value = "/saveT1")
-    public String saveT1(@RequestParam("name") String name) {
-        T1 t = new T1();
-        t.setName(name);
-        return ""+t1Mapper.insert(t);
+    public ResponseEntity<String> saveT1(T1 t1) {
+        return ResponseEntity.ok("" + t1Mapper.insert(t1));
+    }
+
+    @RequestMapping(value = "findT1")
+    public T1 findT1(@RequestParam("id") int id){
+        return t1Service.findOne(id);
+    }
+
+    @RequestMapping(value = "queryT1")
+    public List<T1> queryT1(@RequestBody Map<String, Object> map) {
+        int pageIndex = (Integer) map.get("pageIndex");
+        int pageSize = (Integer) map.get("pageSize");
+        // 分页
+        PageHelper.startPage(pageIndex, pageSize);
+        T1Example t1Example = new T1Example();
+        t1Example.createCriteria()
+                .andNameLike(String.valueOf(map.get("name")));
+        return t1Mapper.selectByExample(t1Example);
+    }
+
+    @RequestMapping("/getlmk")
+    public String getLombokTest() {
+        val r = new Random();
+        return String.valueOf(new LombokTest(r.nextInt(), "ddd").hashCode());
     }
 }
