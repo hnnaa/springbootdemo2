@@ -24,6 +24,8 @@ public class MyTest1 {
         System.out.println("longTime2 begin");
         Thread.sleep(1000);
         System.out.println("longTime2 end");
-        return new AsyncResult<>("yoyo");
+        return AsyncResult.forValue("yoyo");
     }
+
+
 }

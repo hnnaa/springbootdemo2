@@ -1,6 +1,9 @@
 package com.example.controller;
 
-import com.example.config.*;
+import com.example.aspect.MetricTime;
+import com.example.config.ConfigProperty;
+import com.example.config.CustomPetBean;
+import com.example.config.Student;
 import com.example.dao.T1Mapper;
 import com.example.entity.T1;
 import com.example.entity.T1Example;
@@ -18,9 +21,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Slf4j
 @RestController
@@ -96,11 +96,12 @@ public class HelloController {
     }
 
     @RequestMapping(value = "findT1")
-    public T1 findT1(@RequestParam("id") int id){
+    public T1 findT1(@RequestParam("id") int id) {
         return t1Service.findOne(id);
     }
 
     @RequestMapping(value = "queryT1")
+    @MetricTime("queryT1")
     public List<T1> queryT1(@RequestBody Map<String, Object> map) {
         int pageIndex = (Integer) map.get("pageIndex");
         int pageSize = (Integer) map.get("pageSize");
@@ -110,6 +111,12 @@ public class HelloController {
         t1Example.createCriteria()
                 .andNameLike(String.valueOf(map.get("name")));
         return t1Mapper.selectByExample(t1Example);
+    }
+
+    @RequestMapping(value="/updateT1")
+    public String updateT1(@RequestBody T1 t1) {
+        t1Service.update(t1);
+        return "ok";
     }
 
     @RequestMapping("/getlmk")

@@ -6,7 +6,7 @@ public interface T1Service {
 
     T1 findOne(int id);
 
-    boolean update(T1 t1);
+    T1 update(T1 t1);
 
     void  delete(int id);
 }
