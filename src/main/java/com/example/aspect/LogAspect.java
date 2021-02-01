@@ -18,7 +18,7 @@ public class LogAspect {
 
     private Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("execution( public * com.example.test.MyTest1.*(..))")
+    @Pointcut("execution( public * com.example.test.TestFuture.*(..))")
     public void webLog(){
     }
 

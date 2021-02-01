@@ -20,11 +20,6 @@ public class CollectionTest {
     }
 
     @Test
-    public void testStack() {
-        System.out.println(MyStack.toHex(15));
-    }
-
-    @Test
     public void testCollections() {
         //空集合
         List<String> emptyList = Collections.emptyList();

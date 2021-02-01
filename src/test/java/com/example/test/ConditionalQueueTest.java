@@ -5,6 +5,8 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
+ * 多线程-线程安全队列 Condition（线程之间通信）
+ *
  * @author hnn
  * @date 2021/01/25
  */

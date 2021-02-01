@@ -1,6 +1,8 @@
 package com.example.test;
 
 /**
+ * 泛型父类
+ *
  * @author hnn
  * @date 2021/01/26
  */

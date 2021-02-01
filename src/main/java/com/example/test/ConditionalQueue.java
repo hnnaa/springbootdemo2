@@ -1,12 +1,12 @@
 package com.example.test;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
+ * 线程安全队列
+ *
  * @author hnn
  * @date 2021/01/25
  */

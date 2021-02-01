@@ -2,8 +2,6 @@ package com.example.test;
 
 import com.example.Springbootdemo2Application;
 import com.example.pojo.InitDestroyBean;
-import org.apache.commons.collections4.CollectionUtils;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.apache.commons.lang3.time.DateUtils;
@@ -22,31 +20,20 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Future;
 import java.util.function.Supplier;
 
-import static org.junit.Assert.assertEquals;
-
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = {Springbootdemo2Application.class, MyTest1.class})
-public class MyTest1Test {
+@SpringBootTest(classes = {Springbootdemo2Application.class, TestFuture.class})
+public class Test1Test {
 
-    private Logger log = LoggerFactory.getLogger(MyTest1Test.class);
+    private Logger log = LoggerFactory.getLogger(Test1Test.class);
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-
-    @Autowired
-    private MyTest1 myTest1;
 
     @Autowired
     private InitDestroyBean initDestroyBean;
@@ -57,27 +44,6 @@ public class MyTest1Test {
 
     @After
     public void tearDown() throws Exception {
-    }
-
-    @Test
-    public void add() {
-        assertEquals(100, myTest1.add(50, 50));
-    }
-
-    @Test
-    public void longTime() throws Exception {
-        System.out.println("testSpringAsync begin");
-        myTest1.longTime();
-        System.out.println("testSpringAsync end");
-        Thread.sleep(1500);
-    }
-
-    @Test
-    public void longTime2() throws Exception {
-        log.info("testlongTime2 begin");
-        Future<String> future = myTest1.longTime2();
-        log.info("testlongTime2 end");
-        log.info(future.get());
     }
 
     @Test
@@ -137,7 +103,6 @@ public class MyTest1Test {
     public void TestRedis() {
         redisTemplate.opsForHash().put("yo", "1", "2");
     }
-
 
 
 }

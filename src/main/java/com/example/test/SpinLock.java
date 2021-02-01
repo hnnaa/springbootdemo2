@@ -6,6 +6,8 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 
 /**
+ * 自旋锁
+ *
  * @author hnn
  * @date 2021/01/25
  */
@@ -22,7 +24,7 @@ public class SpinLock implements Lock {
             return;
         }
         while (!owner.compareAndSet(null, t)) {
-//            System.out.println(t.getName() + " 自旋");
+            System.out.println(t.getName() + " 自旋");
         }
     }
 

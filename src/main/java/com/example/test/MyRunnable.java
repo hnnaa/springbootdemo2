@@ -1,8 +1,8 @@
 package com.example.test;
 
-import java.time.LocalDateTime;
-
 /**
+ * volatile可见性
+ *
  * @author hnn
  * @date 2021/01/27
  */

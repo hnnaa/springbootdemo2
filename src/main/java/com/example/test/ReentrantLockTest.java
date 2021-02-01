@@ -13,25 +13,7 @@ import java.util.concurrent.locks.ReentrantLock;
  * @date 2021/01/25
  */
 public class ReentrantLockTest {
-    private final static Lock lock = new SpinLock();
-    private final static Lock lock2 = new ReentrantLock();
-
-    public static void main(String[] args) {
-        System.out.println("start:" + LocalDateTimeUtil.now());
-//        Thread t1 = new Thread(new ThreadDead(lock, lock2), "threadA");
-//        Thread t2 = new Thread(new ThreadDead(lock2, lock), "threadB");
-//        t1.start();
-//        t2.start();
-//        t1.interrupt();
-        new Thread(() -> doWork(), "threadA").start();
-        new Thread(() -> doWork(), "threadB").start();
-
-//        new Thread(() -> doWork(), "threadC").start();
-//        new Thread(() -> doWork(), "threadD").start();
-//        new Thread(() -> doWork(), "threadE").start();
-    }
-
-    public static void doWork() {
+    public static void doWork(Lock lock) {
         int i = 1;
         while (i > 0) {
             lock.lock();
