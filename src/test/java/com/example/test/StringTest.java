@@ -1,5 +1,11 @@
 package com.example.test;
 
+import cn.hutool.core.util.StrUtil;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.text.similarity.HammingDistance;
+import org.apache.commons.text.similarity.JaroWinklerDistance;
+import org.apache.commons.text.similarity.LevenshteinDetailedDistance;
+import org.apache.commons.text.similarity.LevenshteinDistance;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -7,9 +13,7 @@ import java.math.RoundingMode;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.Properties;
-import java.util.Queue;
 import java.util.StringJoiner;
-import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author hnn
@@ -48,11 +52,10 @@ public class StringTest {
     }
 
     @Test
-    public void testProperty() throws Exception {
-        Properties properties = new Properties();
-        properties.load(ThreadDead.class.getResourceAsStream("/test.properties"));
-        String test = properties.getProperty("test");
-        System.out.println(test);
-    }
+    public void testDistance() {
+        String left = "abc地方v并非官方公布";
+        String right = "abcdf范德萨v";
 
+        System.out.println(1 - (double) LevenshteinDistance.getDefaultInstance().apply(left, right) / Math.max(left.length(), right.length()));
+    }
 }

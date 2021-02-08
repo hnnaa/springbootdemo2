@@ -8,6 +8,8 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /**
+ * 动态代理
+ *
  * @author hnn
  * @date 2021/01/25
  */
@@ -23,7 +25,7 @@ public class InvocationTest {
             }
         };
 
-        Hello px=(Hello)Proxy.newProxyInstance(Hello.class.getClassLoader(), new Class[]{Hello.class},invocationHandler);
+        Hello px = (Hello) Proxy.newProxyInstance(Hello.class.getClassLoader(), new Class[]{Hello.class}, invocationHandler);
         px.morning();
     }
 }
