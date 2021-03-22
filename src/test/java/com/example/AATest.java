@@ -2,11 +2,13 @@ package com.example;
 
 import com.example.pojo.B;
 import com.example.pojo.C;
+import com.example.test.TestFuture;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.util.DigestUtils;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -107,5 +109,8 @@ public class AATest {
         System.out.println("");
     }
 
-
+    @Test
+    public void TestA() throws CloneNotSupportedException {
+        System.out.println(System.currentTimeMillis());
+    }
 }

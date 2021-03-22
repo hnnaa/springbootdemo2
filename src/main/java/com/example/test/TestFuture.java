@@ -26,4 +26,7 @@ public class TestFuture {
         System.out.println(Thread.currentThread().getName()+ " longTime2 end");
         return AsyncResult.forValue("yoyo");
     }
+
+
+
 }

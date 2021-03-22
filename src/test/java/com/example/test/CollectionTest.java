@@ -2,8 +2,12 @@ package com.example.test;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.example.enums.ColorEnum;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 import java.util.*;
 import java.util.concurrent.ConcurrentLinkedDeque;
 
@@ -40,6 +44,7 @@ public class CollectionTest {
 
         Properties properties = new Properties();
         properties.load(ThreadDead.class.getClassLoader().getResourceAsStream("test.properties"));
+        properties.load(new InputStreamReader(new FileInputStream("testFromFile.properties"), "utf-8"));
         String test = properties.getProperty("test");
         System.out.println(test);
     }
@@ -71,5 +76,27 @@ public class CollectionTest {
         List<String> listB = Collections.unmodifiableList(listA);
 
         System.out.println(integers);
+    }
+
+    @Test
+    public void testMap() {
+        Map<String, Integer> map = new HashMap<>();
+        System.out.println(map.getOrDefault("s", 123));
+    }
+
+    @Test
+    public void testTreeMap() throws Exception {
+        Map<String, String> map = new HashMap<>();
+        map.put("11", "1");
+        map.put("1", "10");
+        map.put("3", "0");
+        ObjectMapper objectMapper = new ObjectMapper();
+        String s1 = objectMapper.writeValueAsString(map);
+        System.out.println(s1);
+        Map<String, JsonNode> map2 = objectMapper.readValue(s1, Map.class);
+
+        Map<String, JsonNode> treeMap = new TreeMap<>(Comparator.comparing(Integer::valueOf));
+        treeMap.putAll(map2);
+        System.out.println("");
     }
 }
