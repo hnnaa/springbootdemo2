@@ -8,7 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.function.Supplier;
 
 import static org.junit.Assert.*;
 
@@ -44,5 +48,30 @@ public class TestFutureTest {
     @Test
     public void add() {
         assertEquals(100, testFuture.add(50, 50));
+    }
+
+    @Test
+    public void testFuture(){
+        System.out.println("begin test");
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        CompletableFuture<String> result = CompletableFuture.supplyAsync(new Supplier<String>() {
+            @Override
+            public String get() {
+                System.out.println("begin thread " + Thread.currentThread().getId());
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                System.out.println("begin end " + Thread.currentThread().getId());
+                return "yo";
+            }
+        }, executorService);
+
+        System.out.println("after execute");
+        result.thenAccept(e -> {
+            System.out.println("result=" + e);
+        });
+        System.out.println("end test");
     }
 }

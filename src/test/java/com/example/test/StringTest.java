@@ -58,4 +58,22 @@ public class StringTest {
 
         System.out.println(1 - (double) LevenshteinDistance.getDefaultInstance().apply(left, right) / Math.max(left.length(), right.length()));
     }
+
+    @Test
+    public void testStringFormat(){
+            String hex = Integer.toHexString(0x000000FF);
+            String sHex = String.format("%8s", hex).replace(" ", "0");
+            String color = "蓝色";
+            switch (sHex) {
+                case "0000FF":
+                    color = "蓝色";
+                    break;
+                case "FFFFFF":
+                    color = "白色";
+                    break;
+                default:
+                    color = "蓝色";
+                    break;
+            }
+    }
 }
